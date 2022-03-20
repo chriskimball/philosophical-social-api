@@ -23,4 +23,6 @@ router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
   }
 });
 
+// $PUSH, $PULL from sub-documents in activity 25/26
+
 module.exports = router;
