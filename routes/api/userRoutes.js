@@ -12,9 +12,4 @@ const {
 router.route('/').get(getUsers).post(createUser);
 router.route('/:userId').get(getSingleUser).delete(deleteUser).put(updateUser);
 
-/*
-    TODO:
-    **BONUS**: Remove a user's associated thoughts when deleted.
-*/
-
 module.exports = router;
