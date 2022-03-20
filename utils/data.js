@@ -1,6 +1,6 @@
 // TODO:
 
-const names = [
+const nameArr = [
     'Aaran',
     'Aaren',
     'Aarez',
@@ -84,32 +84,47 @@ const names = [
   ]
   
   const thoughtArr = [
-    
+    'You are the best.',
+    'Coding is awesome!',
+    'Keep your head up.',
+    'You can do anything you put your mind to.',
+    'Stay positive',
+    'Hard work pays off.',
+    'My dog is my best friend.',
+    'How much wood could a wood chuck chuck?',
+    'I recommend coding for at least one hour per day.',
+    'Everything happens for a reason.',
+    'I can think of many things to say.',
+    'We all should appreciate the little things in life',
+    'Wow, this is a cool thought.',
+    'How many more thoughts should I think of?',
+    'Maybe a few more.',
+    'When a tree falls in the forest, does it make a sound?',
+    'The end!'
   ];
 
-  const reactions = [
-
+  const reactionArr = [
+    'That is a cool thought.',
+    'Thank you for sharing your thoughts.',
+    'I agree with your thought!',
+    'Wow, amazing!',
+    'Cool!',
+    'Could you share more?',
+    'You know that might not be right...',
+    'Where did you learn this?',
+    'Another sample reaction here!'
   ]
   
   // Get a random item given an array
   const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
   
   // Gets a random full name
-  const getRandomName = () => `${getRandomArrItem(names)}`;
-  const getRandomEmail = (name) => `${name}${Math.floor(Math.random() * 999)}${getRandomArrItem(emailDomains)}`
-
-  // Function to generate random assignments that we can add to student object.
-  const getRandomThought = (int) => {
-    const results = [];
-    for (let i = 0; i < int; i++) {
-      results.push({
-        assignmentName: getRandomArrItem(appDescriptions),
-        score: Math.floor(Math.random() * (99 - 70 + 1) + 70),
-      });
-    }
-    return results;
-  };
+  const getRandomName = () => `${getRandomArrItem(nameArr)}`;
+  const getRandomEmail = (name) => `${name}${Math.floor(Math.random() * 9999)}${getRandomArrItem(emailDomains)}`
+  const getRandomThought = () => `${getRandomArrItem(thoughtArr)}`
+  const getRandomReaction = () => `${getRandomArrItem(reactionArr)}`
+  
   
   // Export the functions for use in seed.js
-  module.exports = { getRandomName, getRandomEmail, getRandomArrItem };
+  module.exports = { getRandomName, getRandomEmail, getRandomArrItem,getRandomThought, getRandomReaction };
   

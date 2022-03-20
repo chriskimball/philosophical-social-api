@@ -1,12 +1,10 @@
+const connection = require("../config/connection");
+const { User, Thought } = require("../models");
+const { getRandomName, getRandomEmail, getRandomArrItem, getRandomThought, getRandomReaction } = require("./data");
+connection.on("error", (err) => err);
 
-const connection = require('../config/connection');
-const { User, Thought } = require('../models');
-const { getRandomName, getRandomEmail, getRandomArrItem } = require('./data');
-connection.on('error', (err) => err);
-
-
-connection.once('open', async () => {
-  console.log('connected');
+connection.once("open", async () => {
+  console.log("connected");
 
   // Drop existing Users
   await User.deleteMany({});
@@ -14,16 +12,13 @@ connection.once('open', async () => {
   // Drop existing Thoughts
   await Thought.deleteMany({});
 
-  // Create empty array to hold the students
+  // Create empty array to hold the users
   const users = [];
 
-  // Get some random assignment objects using a helper function that we imported from ./data
-  // const thoughts = getRandomAssignments(20);
-
-  // Loop 20 times -- add students to the students array
+  // Loop 20 times -- add users to the users array
   for (let i = 0; i < 20; i++) {
     const name = getRandomName();
-    const username = `${name}${Math.floor(Math.random() * 999)}`;
+    const username = `${name}${Math.floor(Math.random() * 9999)}`;
     const email = getRandomEmail(name);
 
     users.push({
@@ -34,38 +29,45 @@ connection.once('open', async () => {
 
   // Add students to the collection and await the results
   await User.collection.insertMany(users);
-  
-  const userData = await User.find()
-  const userIdArr = userData.map(user => user._id.valueOf())
-  console.log(userData)
-  console.log(userIdArr)
 
-  for (let i=0; i < 30; i++) {
-    let newUserId=getRandomArrItem(userIdArr)
-    let newFriendId=getRandomArrItem(userIdArr)
+  const userData = await User.find();
+  const userArr = userData.map(({_id, username}) => ({id:_id.valueOf(), username}));
+
+  for (let i = 0; i < 30; i++) {
+    let newUserId = getRandomArrItem(userArr).id;
+    let newFriendId = getRandomArrItem(userArr).id;
     if (newUserId !== newFriendId) {
-      await User.findOneAndUpdate(
-        {_id: newUserId},
-        {$addToSet:{friends:newFriendId}},
-        { runValidators: true, new: true}
-        )
-        
-
+      await User.findOneAndUpdate({ _id: newUserId }, { $addToSet: { friends: newFriendId } }, { runValidators: true, new: true });
     }
-    
   }
 
+  for (let i = 0; i < 100; i++) {
+    const thoughtUser = getRandomArrItem(userData);
+
+    await Thought.create({
+      thoughtText: getRandomThought(),
+      username: thoughtUser.username,
+    });
+  }
+
+  const thoughtData = await Thought.find();
+  const userThoughtArr = thoughtData.map(({ _id, username, thoughtText }) => ({ id: _id.valueOf(), username, thoughtText }));
   
+  for (let i = 0; i < userThoughtArr.length; i++) {
+    await User.findOneAndUpdate({ username: userThoughtArr[i].username }, { $addToSet: { thoughts: userThoughtArr[i].id } }, { runValidators: true, new: true });
+  }
 
-  // Add courses to the collection and await the results
-  // await Course.collection.insertOne({
-  //   courseName: 'UCLA',
-  //   inPerson: false,
-  //   students: [...students],
-  // });
+  for (let i = 0; i < 100; i++) {
+    await Thought.findOneAndUpdate(
+      { _id: getRandomArrItem(userThoughtArr).id },
+      {
+        $addToSet: { reactions: { reactionBody: getRandomReaction(), username: getRandomArrItem(userArr).username } },
+      }
+    );
+  }
 
-  // Log out the seed data to indicate what should appear in the database
   console.table(users);
-  console.info('Seeding complete! 🌱');
-  setTimeout(()=>{process.exit(0)}, 5000);
+  console.table(userThoughtArr);
+  console.info("Seeding complete! 🌱");
+  process.exit(0);
 });
