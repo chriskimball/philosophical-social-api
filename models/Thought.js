@@ -1,11 +1,7 @@
 const { Schema, Types, model } = require("mongoose");
 
-const dateFormat = function (date) {
-    return `${ date.getMonth() + 1 }/${date.getDate()}/${date.getFullYear()} ${date.getHours() + 1 }:${ date.getMinutes() + 1 }`
-}
+const dateFormat = (v) => {return `${ v.toDateString()} at ${v.toTimeString()}`}
 
-
-//TODO:
 const reactionSchema = new Schema(
   {
     reactionId: {
@@ -31,8 +27,6 @@ const reactionSchema = new Schema(
   },
   {
     toJSON: {
-      // Mongoose will not include virtuals by default, so add a `virtuals` property and set it's value to true
-    //   virtuals: true,
       getters: true,
     },
     // Reaction custom id field id:false will disable the default _id: field
@@ -40,7 +34,6 @@ const reactionSchema = new Schema(
   }
 );
 
-//TODO:
 const thoughtSchema = new Schema(
     {
   thoughtText: {
@@ -52,7 +45,7 @@ const thoughtSchema = new Schema(
   createdAt: {
     type: Date,
     default: Date.now(),
-    get: v => `${ v.getMonth() + 1 }/${v.getDate()}/${v.getFullYear()} ${v.getHours() + 1 }:${ v.getMinutes() + 1 }`
+    get: dateFormat
   },
   username: {
     type: String,
@@ -73,9 +66,6 @@ thoughtSchema
     .get(function () {
         return this.reactions.length;
     })
-
-    
-
 
 const Thought = model("Thought", thoughtSchema);
 
