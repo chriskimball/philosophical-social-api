@@ -1,7 +1,7 @@
 const { Thought } = require('../models');
 
 module.exports = {
-  // Add reaction to thought
+  // Add reaction to thought, function is attached to POST request to `/api/thoughts/:thoughtId/reactions`
   addReaction(req, res) {
     Thought.findByIdAndUpdate(
       req.params.thoughtId,
@@ -15,7 +15,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove reaction from thought
+    // Add reaction to thought, function is attached to DELETE request to `/api/thoughts/:thoughtId/reactions`
   removeReaction(req, res) {
     Thought.findByIdAndUpdate(
       req.params.thoughtId,

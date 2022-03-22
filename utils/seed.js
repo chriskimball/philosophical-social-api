@@ -30,10 +30,12 @@ connection.once("open", async () => {
   // Add students to the collection and await the results
   await User.collection.insertMany(users);
 
+  // Finding newly created user data so we can use their id's and usernames for additional seed actions.
   const userData = await User.find();
   const userArr = userData.map(({_id, username}) => ({id:_id.valueOf(), username}));
 
-  for (let i = 0; i < 30; i++) {
+  // Adds friend to user account if the randomized userid does not equal the potential friend's userid. Loop runs 50 times.
+  for (let i = 0; i < 50; i++) {
     let newUserId = getRandomArrItem(userArr).id;
     let newFriendId = getRandomArrItem(userArr).id;
     if (newUserId !== newFriendId) {
@@ -41,6 +43,7 @@ connection.once("open", async () => {
     }
   }
 
+  // Loop to create 100 thoughts for random users.
   for (let i = 0; i < 100; i++) {
     const thoughtUser = getRandomArrItem(userData);
 
@@ -50,13 +53,16 @@ connection.once("open", async () => {
     });
   }
 
+  // Retreiving newly created thought data and mapping it into new array so we can add reactions to newly created thought ids.
   const thoughtData = await Thought.find();
   const userThoughtArr = thoughtData.map(({ _id, username, thoughtText }) => ({ id: _id.valueOf(), username, thoughtText }));
   
+  // Updating user objects with their associated thought ids.
   for (let i = 0; i < userThoughtArr.length; i++) {
     await User.findOneAndUpdate({ username: userThoughtArr[i].username }, { $addToSet: { thoughts: userThoughtArr[i].id } }, { runValidators: true, new: true });
   }
 
+  // Adding 100 random reactions to random user thoughts.
   for (let i = 0; i < 100; i++) {
     await Thought.findOneAndUpdate(
       { _id: getRandomArrItem(userThoughtArr).id },

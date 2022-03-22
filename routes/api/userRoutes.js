@@ -1,4 +1,3 @@
-// const { User } = require("../../models");
 const router = require("express").Router();
 
 const {
@@ -9,7 +8,10 @@ const {
   updateUser
 } = require('../../controllers/userController');
 
+// Attaching `getUsers` function to GET requests to this route, and `createUser` function to POST requests to this route.
 router.route('/').get(getUsers).post(createUser);
+
+// Attaching `getSingleUser` function to GET requests to this route, `updateUser` function to PUT reqeusts to this route, and `deleteUser` function to DELETE requests to this route.
 router.route('/:userId').get(getSingleUser).delete(deleteUser).put(updateUser);
 
 module.exports = router;

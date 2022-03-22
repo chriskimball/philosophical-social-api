@@ -1,13 +1,13 @@
 const { User, Thought } = require('../models');
 
 module.exports = {
-  // Get all thoughts
+  // Get all thoughts, function is attached to GET request to `/api/thoughts`
   getThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
   },
-  // Get a single thought
+  // Get a single thought, function is attached to GET request to `/api/thoughts/:thoughtId`
   getSingleThought(req, res) {
     Thought.findById(req.params.thoughtId)
       .select('-__v')
@@ -18,7 +18,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new thought
+  // create a new thought, function is attached to POST request to `/api/thoughts`
   createThought(req, res) {
     Thought.create(req.body)
     .then((thought) => {
@@ -37,7 +37,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a thought
+  // Delete a thought, function is attached to DELETE request to `/api/thoughts/:thoughtId`
   deleteThought(req, res) {
     Thought.findByIdAndDelete( req.params.thoughtId )
       .then((thought) =>
@@ -47,7 +47,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Update thought
+  // Update thought, function is attached to a PUT request to `/api/thoughts/:thoughtId`
   updateThought(req, res) {
     Thought.findByIdAndUpdate(req.params.thoughtId,
         req.body, 

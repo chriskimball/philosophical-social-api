@@ -1,13 +1,13 @@
 const { User, Thought } = require('../models');
 
 module.exports = {
-  // Get all users
+  // Get all users, function is attached to GET request to `/api/users`
   getUsers(req, res) {
     User.find()
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
-  // Get a single user
+  // Get a single user, function is attached to GET request to `/api/users/:userId`
   getSingleUser(req, res) {
     User.findById(req.params.userId)
       .select('-__v')
@@ -18,13 +18,13 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new user
+  // create a new user, function is attached to POST request to `/api/users`
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a user and associated apps
+  // Delete a user and associated apps, function is attached to DELETE request to `/api/users/:userId`
   deleteUser(req, res) {
     User.findByIdAndDelete( req.params.userId )
       .then((user) =>
@@ -35,7 +35,7 @@ module.exports = {
       .then(() => res.json({ message: 'User and associated thoughts deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
-  // Update 
+  // Update a user, function is attached to a PUT request to `/api/users/:userId`
   updateUser(req, res) {
     User.findByIdAndUpdate(req.params.userId,
         req.body, 

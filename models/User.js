@@ -14,6 +14,7 @@ const userSchema = new Schema(
       required: [true, "Email address is required!"],
       unique: true,
       trim: true,
+      // Built in validator to make sure email address that user is created with matches the formatting of a valid email address.
       validate: {
         validator: function (v) {
           return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);

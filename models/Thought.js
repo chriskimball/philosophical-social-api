@@ -1,5 +1,6 @@
 const { Schema, Types, model } = require("mongoose");
 
+// Getter function to format dates into readable format.
 const dateFormat = (v) => {return `${ v.toDateString()} at ${v.toTimeString()}`}
 
 const reactionSchema = new Schema(

@@ -1,7 +1,7 @@
 const { User } = require('../models');
 
 module.exports = {
-  // Add friend to User account
+  // Add friend to User account, function is attached to POST request to `/api/users/:userId/friends/:friendId`
   addFriend(req, res) {
     User.findByIdAndUpdate(
       req.params.userId,
@@ -15,7 +15,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove friend from user account
+  // Remove friend from user account, function is attached to DELETE request to `/api/users/:userId/friends/:friendId`
   removeFriend(req, res) {
     User.findByIdAndUpdate(
       req.params.userId,

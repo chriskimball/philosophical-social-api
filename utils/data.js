@@ -1,6 +1,6 @@
-// TODO:
 
-const nameArr = [
+// Array of names that will be used to generate username and email address seed data.
+  const nameArr = [
     'Aaran',
     'Aaren',
     'Aarez',
@@ -76,13 +76,15 @@ const nameArr = [
     'Parker',
   ];
 
+  // List of email domains that will be fed into email address seed data.
   const emailDomains = [
-      '@gmail.com',
-      '@yahoo.com',
-      '@hotmail.com',
-      '@aol.com',
+    '@gmail.com',
+    '@yahoo.com',
+    '@hotmail.com',
+    '@aol.com',
   ]
   
+  // List of sample thoughts that will feed into the User Thought seed data.
   const thoughtArr = [
     'You are the best.',
     'Coding is awesome!',
@@ -103,6 +105,7 @@ const nameArr = [
     'The end!'
   ];
 
+  // List of sample reactions that will feed into the reaction seed data added to thought seeds. 
   const reactionArr = [
     'That is a cool thought.',
     'Thank you for sharing your thoughts.',
@@ -115,13 +118,16 @@ const nameArr = [
     'Another sample reaction here!'
   ]
   
-  // Get a random item given an array
+  // Get a random item given an array.
   const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
   
-  // Gets a random full name
+  // Grabs a random name from name array to be used in username and email address.
   const getRandomName = () => `${getRandomArrItem(nameArr)}`;
+  // Generates a randomized email address consisting of a random Name, 4 random digits, and a random email domain.
   const getRandomEmail = (name) => `${name}${Math.floor(Math.random() * 9999)}${getRandomArrItem(emailDomains)}`
+  // Grabs a random thought out of the thought array.
   const getRandomThought = () => `${getRandomArrItem(thoughtArr)}`
+  // Grabs a random reaction from the reaction array.
   const getRandomReaction = () => `${getRandomArrItem(reactionArr)}`
   
   
