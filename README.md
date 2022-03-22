@@ -102,14 +102,13 @@ The following API routes allow users to add and remove reactions to and from tho
 * [Questions](#questions)
 
 
-TODO:
 ## Web Addresses
 ---------------
 
 *  [Github Repository](https://github.com/chriskimball/philosophical-social-api "Github Repo")
-*  [Walkthrough Demo Part 1](https://watch.screencastify.com/v/HeSGAJDGyeXjwtHWFB9b "Walkthrough Demo Part 1")
-*  [Walkthrough Demo Part 2](https://watch.screencastify.com/v/VdKKqlPSBL4TB29JUjq0 "Walkthrough Demo Part 2")
-*  [Walkthrough Demo Part 3](https://watch.screencastify.com/v/jqrxybZUpPKLFQoVCZXp "Walkthrough Demo Part 3")
+*  [Walkthrough Demo Part 1](https://drive.google.com/file/d/1bFKi6eTyK0irvHxtZ2HPBHo8Mxn3-z97/view "Walkthrough Demo Part 1")
+*  [Walkthrough Demo Part 2](https://drive.google.com/file/d/130y0QhoxnCeCE0nYjqyl9fRA4tf7sNRe/view "Walkthrough Demo Part 2")
+*  [Walkthrough Demo Part 3](https://drive.google.com/file/d/1M86-bBshazB0iDZss7pibR6C_qRpczc5/view "Walkthrough Demo Part 3")
 
 
 ## Installation
